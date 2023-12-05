@@ -1,70 +1,113 @@
 package lab02;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+//Nguyá»…n Trung Äáº¡t 20215029
 public class Cart {
-    public static final int MAX_NUMBER_ORDERED = 20;
-    private int qtyOrdered ;
-    private DigitalVideoDisc itemsOrdered[] = new DigitalVideoDisc[MAX_NUMBER_ORDERED];
-    // Method to add a DigitalVideoDisc to the cart
-    public void addDigitalVideoDisc(DigitalVideoDisc disc){
-        if(qtyOrdered - 1 == MAX_NUMBER_ORDERED ){
-            System.out.println("Nguyá»…n Trung Äáº¡t - 20215029 The cart is almost full");
-        }
-        else{
 
-            itemsOrdered[qtyOrdered] = disc;
-            qtyOrdered++;
+	public static final int MAX_NUMBERS_ORDERED = 20;
+	private float totalcost = 0;
+	ArrayList<DigitalVideoDisc> itemsOderedList = new ArrayList<DigitalVideoDisc>(MAX_NUMBERS_ORDERED);
 
-            System.out.println("Nguyá»…n Trung Äáº¡t - 20215029 The disc has been added");
-        }
-    }
-    // Method to remove a DigitalVideoDisc from the cart
-    public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
-        int check = 0;
-        for (int i = 0; i <= qtyOrdered; i++) {
-            if (disc.equals(itemsOrdered[i])) {
-                check = i;
-            }
-        }
-        if(check >= 0) {
-            System.out.println("The dvd" + (check + 1) +" has been deleted");
-            for (int i = check; i <= qtyOrdered; i++) {
-                itemsOrdered[i] = itemsOrdered[i + 1];
-            }
+	public int qtyOrdered = 0;
 
-        }
-        else {
-            System.out.println("Nguyá»…n Trung Äáº¡t - 20215029 Don't have the disc in the cart");
-        }
-        qtyOrdered--;
-    }
-    // Method to calculate the total cost of items in the cart
-    public double totalCost(){
-        double totalCost = 0;
-        for(int i = 0; i < qtyOrdered; i++){
-            totalCost += itemsOrdered[i].getCost();
-            
-        }
+	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
+		itemsOderedList.remove(disc);
+		System.out.println("The disc " + disc.getTitle() + " has been removed");
+		qtyOrdered = itemsOderedList.size();
+	}
 
-        double number = totalCost;
-        DecimalFormat df = new DecimalFormat("0.00");
+	//Nguyá»…n Trung Äáº¡t 20215029
+	public void addDigitalVideoDisc(DigitalVideoDisc disc) {
+		if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+			itemsOderedList.add(disc);
+			System.out.println("The disc " + disc.getTitle() + " has been added");
+			qtyOrdered = itemsOderedList.size();
 
-        // Use formatting patterns to format numbers
-        String formattedNumber = df.format(number);
-        return Double.valueOf(formattedNumber);  }
-    
-    public void addDigitalVideoDisc(DigitalVideoDisc [] dvdList){
-        for(int i = 0; i < dvdList.length; i++){
-            itemsOrdered[qtyOrdered] = dvdList[i];
-            qtyOrdered++;
-        }
-        System.out.println("Nguyá»…n Trung Äáº¡t - 20215029 Add list complete");
-    }
-    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2){
-        itemsOrdered[qtyOrdered] = dvd1;
-        itemsOrdered[qtyOrdered + 1] = dvd2;
-        qtyOrdered += 2;
-    }
+			System.out.println("ID: " + disc.id);
+		} else
+			System.out.println("The cart is almost full");
+	}
+
+	//Nguyá»…n Trung Äáº¡t 20215029
+
+	public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
+		for (int i = 0; i < dvdList.length; i++) {
+
+			if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+				itemsOderedList.add(dvdList[i]);
+				System.out.println("The disc " + dvdList[i].getTitle() + " has been added");
+				qtyOrdered = itemsOderedList.size();
+			} else
+				System.out.println("The cart is almost full");
+		}
+	}
+
+	public void addDigitalVideoDisc() {
+
+	}
+
+	public float totalCost() {
+		for (int i = 0; i < itemsOderedList.size(); i++) {
+			totalcost += itemsOderedList.get(i).getCost();
+		}
+		return totalcost;
+	}
+//Nguyá»…n Trung Äáº¡t 20215029
+
+	public void printCart() {
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
+		System.out.println("1. " + itemsOderedList.get(0).toString());
+		for (int i = 1; i < itemsOderedList.size(); i++) {
+			int j = i + 1;
+			System.out.println(j + ". " + itemsOderedList.get(i).toString());
+		}
+		System.out.println("Total cost: " + totalCost());
+		System.out.println("***************************************************");
+
+	}
+
+	//Nguyá»…n Trung Äáº¡t 20215029
+
+	public void searchCartId() {
+		int id, dem = 0;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("Input ID: ");
+		id = keyboard.nextInt();
+		for (int i = 0; i < itemsOderedList.size(); i++) {
+			if (id == itemsOderedList.get(i).id) {
+				System.out.println(itemsOderedList.get(i).toString());
+				dem++;
+				break;
+			}
+		}
+
+		if (dem == 0) {
+			System.out.println("Don't found this title in your cart!");
+		}
+
+	}
+//Nguyá»…n Trung Äáº¡t 20215029
+
+	public void searchCartTitle() {
+		String title1;
+		int dem = 0;
+		Scanner keyboard = new Scanner(System.in);
+		String checkString = "1";
+		System.out.println("Input title: ");
+		title1 = keyboard.nextLine();
+		for (int i = 0; i < itemsOderedList.size(); i++) {
+			if (itemsOderedList.get(i).isMatchTitle(title1) == true) {
+				System.out.println(itemsOderedList.get(i).toString());
+				dem++;
+				break;
+			}
+		}
+		if (dem == 0) {
+			System.out.println("Don't found this title in your cart!");
+		}
+	}
 
 }

@@ -1,59 +1,87 @@
 package lab02;
 
+import java.lang.String;
+
 public class DigitalVideoDisc {
+	private static int nbDigitalVideoDisc = 0;
 	private String title;
 	private String category;
-	private String director;
-	private int length;
+	private String directory;
+	private int lenght;
 	private float cost;
-	// Add getters for attributes
+	public int id = nbDigitalVideoDisc;
+	
+	public DigitalVideoDisc(String title) {
+		super();
+		this.title = title;
+		nbDigitalVideoDisc++;
+	}
+	public DigitalVideoDisc( String title,String category, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
+		nbDigitalVideoDisc++;
+	}
+
+	public DigitalVideoDisc(String title, String category, String directory, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.directory = directory;
+		this.cost = cost;
+		nbDigitalVideoDisc++;
+	}
+	
+	public DigitalVideoDisc(String title, String category, String directory, int lenght, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.directory = directory;
+		this.lenght = lenght;
+		this.cost = cost;
+		nbDigitalVideoDisc++;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
 	public String getCategory() {
 		return category;
 	}
-	public String getDirector() {
-		return director;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public int getLength() {
-		return length;
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public void setDirectory(String directory) {
+		this.directory = directory;
+	}
+	public void setLenght(int lenght) {
+		this.lenght = lenght;
+	}
+	public void setCost(float cost) {
+		this.cost = cost;
+	}
+	public String getDirectory() {
+		return directory;
+	}
+	public int getLenght() {
+		return lenght;
 	}
 	public float getCost() {
 		return cost;
 	}
 	
-	// Constructor to create a DVD object by title
-    public DigitalVideoDisc(String title) {
-		super();
-		this.title = title;
-	}
-    
-    // Constructor to create a DVD object by category, title, and cost
-    public DigitalVideoDisc(String category, String title, float cost) {
-		super();
-		this.category = category;
-		this.title = title;
-		this.cost = cost;
+	@Override
+	public String toString() {
+		return "DVD - " + title + " - " + category + " - " + directory + " - "
+				+ lenght + ": " + cost + "$";
 	}
 	
-    // Constructor to create a DVD object by director, category, title, and cost
-	public DigitalVideoDisc(String director, String category, String title, float cost) {
-		super();
-		this.director = director;
-		this.category = category;
-		this.title = title;
-		this.cost = cost;
+	public boolean isMatchTitle(String title1) {
+		return this.getTitle().equals(title1);
 	}
 	
-	// Constructor to create a DVD object with all attributes
-    public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.director = director;
-		this.length = length;
-		this.cost = cost;
-	}
-    
 }
